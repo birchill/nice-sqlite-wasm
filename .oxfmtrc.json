@@ -1,0 +1,8 @@
+{
+  "bracketSpacing": true,
+  "experimentalSortPackageJson": true,
+  "objectWrap": "collapse",
+  "printWidth": 80,
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
