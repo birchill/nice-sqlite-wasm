@@ -27,7 +27,7 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
 
       - name: Setup wabt (for wasm-strip)
-        uses: chiefbiiko/setup-wabt@v1
+        uses: chiefbiiko/setup-wabt@1
 
       - name: Check wasm-strip version
         run: wasm-strip --version
