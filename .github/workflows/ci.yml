@@ -17,13 +17,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version: 24
+          # emsdk seems to be using Node 22 at the moment so align with that
+          node-version: 22
 
       - name: Install deps
         run: pnpm install
 
       - name: Setup emsdk
         uses: mymindstorm/setup-emsdk@v14
+
+      - name: Setup wabt (for wasm-strip)
+        uses: chiefbiiko/setup-wabt@v1
+
+      - name: Check wasm-strip version
+        run: wasm-strip --version
 
       - name: Fetch SQLite source
         run: pnpm run fetch
