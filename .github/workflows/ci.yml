@@ -28,6 +28,8 @@ jobs:
 
       - name: Setup wabt (for wasm-strip)
         uses: mwilliamson/setup-wabt-action@v3
+        with:
+          wabt-version: 1.0.39
 
       - name: Check wasm-strip version
         run: wasm-strip --version
