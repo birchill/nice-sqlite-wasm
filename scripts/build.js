@@ -78,7 +78,11 @@ try {
   closeSync(outFd);
 }
 
-// 4) Copy output to dist
+// 4) Format output
+console.log('Formatting output with oxfmt...');
+execFileSync('pnpm', ['oxfmt', apiFileOut], { stdio: 'inherit' });
+
+// 5) Copy output to dist
 const wasmModule = path.join(EXT_WASM, 'jswasm', 'esm', 'sqlite3.wasm');
 cpSync(wasmModule, path.join(DIST_DIR, 'sqlite3.wasm'));
 cpSync(apiFileOut, path.join(DIST_DIR, 'sqlite3.js'));
