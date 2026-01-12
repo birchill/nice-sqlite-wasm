@@ -22,5 +22,8 @@
   },
   "scripts": {
     "fetch": "node scripts/fetch-sqlite.js"
+  },
+  "devDependencies": {
+    "oxfmt": "0.23.0"
   }
 }
