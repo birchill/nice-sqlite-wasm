@@ -1,4 +1,4 @@
-import { mkdir, rmSync, existsSync } from 'node:fs';
+import { mkdir, rmSync, existsSync, openSync, closeSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
@@ -34,6 +34,28 @@ execFileSync('make', ['-C', EXT_WASM, 'oz'], {
   cwd: EXT_WASM,
   stdio: 'inherit',
 });
+
+// Strip comments (normally mkdist.sh does this but we're not using the snapshot
+// or dist targets).
+console.log('Stripping C comments from output...');
+execFileSync('make', ['-C', EXT_WASM, 't-stripccomments'], {
+  cwd: EXT_WASM,
+  stdio: 'inherit',
+});
+const inFd = openSync(path.join(EXT_WASM, 'jswasm', 'sqlite3.mjs'), 'r');
+const outFd = openSync(
+  path.join(EXT_WASM, 'jswasm', 'sqlite3-stripped.mjs'),
+  'w'
+);
+try {
+  execFileSync(path.join(SQLITE_DIR, 'tool', 'stripccomments'), ['-k', '-k'], {
+    cwd: SQLITE_DIR,
+    stdio: [inFd, outFd, 'inherit'],
+  });
+} finally {
+  closeSync(inFd);
+  closeSync(outFd);
+}
 
 // 3) Create a custom sqlite3-api.js (no oo1, no worker1, no opfs).
 //
