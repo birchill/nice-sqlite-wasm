@@ -2,22 +2,16 @@
   "languages": {
     "JavaScript": {
       "format_on_save": "on",
-      "formatter": [
-        {
-          "language_server": {
-            "name": "oxfmt"
-          }
-        }
-      ]
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "JSONC": {
+      "format_on_save": "on",
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
     }
   },
   "lsp": {
     "oxfmt": {
-      "initialization_options": {
-        "settings": {
-          "fmt.configPath": null
-        }
-      }
+      "initialization_options": { "settings": { "fmt.configPath": null } }
     }
   }
 }
