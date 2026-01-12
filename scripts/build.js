@@ -1,4 +1,11 @@
-import { mkdir, rmSync, existsSync, openSync, closeSync } from 'node:fs';
+import {
+  closeSync,
+  cpSync,
+  existsSync,
+  mkdirSync,
+  openSync,
+  rmSync,
+} from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
@@ -11,7 +18,7 @@ const DIST_DIR = path.resolve('dist');
 if (existsSync(DIST_DIR)) {
   rmSync(DIST_DIR, { recursive: true, force: true });
 }
-mkdir(DIST_DIR, { recursive: true }, () => {});
+mkdirSync(DIST_DIR, { recursive: true });
 
 // 2) Build
 console.log('Building SQLite...');
@@ -59,10 +66,8 @@ execFileSync('make', ['-C', EXT_WASM, 't-stripccomments'], {
 });
 console.log('Stripping C comments from output...');
 const inFd = openSync(path.join(EXT_WASM, 'jswasm', 'sqlite3.mjs'), 'r');
-const outFd = openSync(
-  path.join(EXT_WASM, 'jswasm', 'sqlite3-stripped.mjs'),
-  'w'
-);
+const apiFileOut = path.join(EXT_WASM, 'jswasm', 'sqlite3-stripped.mjs');
+const outFd = openSync(apiFileOut, 'w');
 try {
   execFileSync(path.join(SQLITE_DIR, 'tool', 'stripccomments'), ['-k', '-k'], {
     cwd: SQLITE_DIR,
@@ -73,4 +78,9 @@ try {
   closeSync(outFd);
 }
 
-console.log('Build complete: dist/sqlite3.{mjs,wasm} and dist/sqlite3-api.js');
+// 4) Copy output to dist
+const wasmModule = path.join(EXT_WASM, 'jswasm', 'esm', 'sqlite3.wasm');
+cpSync(wasmModule, path.join(DIST_DIR, 'sqlite3.wasm'));
+cpSync(apiFileOut, path.join(DIST_DIR, 'sqlite3.js'));
+
+console.log('Build complete: dist/sqlite3.{js,wasm}');
