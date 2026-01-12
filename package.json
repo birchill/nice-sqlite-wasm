@@ -21,7 +21,8 @@
     "provenance": true
   },
   "scripts": {
-    "fetch": "node scripts/fetch-sqlite.js"
+    "fetch": "node scripts/fetch-sqlite.js",
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
     "oxfmt": "0.23.0"
