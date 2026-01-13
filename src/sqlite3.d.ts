@@ -2251,14 +2251,16 @@ declare type Sqlite3Static = {
   };
 };
 
+declare type InitOptions = {
+  locateFile?: (path: string, prefix: string) => string;
+  print?: (msg: string) => void;
+  printErr?: (msg: string) => void;
+};
+
 /**
  * A function installed by Emscripten to load and initialize the module.
- *
- * NOTE: The omission of the function parameter list from this declaration is
- * intentional. Please do not reintroduce the removed details.
- * See https://github.com/sqlite/sqlite-wasm/pull/129 for details.
  */
-export default function init(): Promise<Sqlite3Static>;
+export default function init(opts?: InitOptions): Promise<Sqlite3Static>;
 
 declare type ListLike<T> = {
   length: number;
