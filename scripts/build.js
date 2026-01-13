@@ -13,6 +13,7 @@ const WORK_DIR = path.resolve('work');
 const SQLITE_DIR = path.join(WORK_DIR, 'sqlite-src');
 const EXT_WASM = path.join(SQLITE_DIR, 'ext', 'wasm');
 const DIST_DIR = path.resolve('dist');
+const SRC_DIR = path.resolve('src');
 
 // 1) Clean dist
 if (existsSync(DIST_DIR)) {
@@ -86,5 +87,7 @@ execFileSync('pnpm', ['oxfmt', apiFileOut], { stdio: 'inherit' });
 const wasmModule = path.join(EXT_WASM, 'jswasm', 'esm', 'sqlite3.wasm');
 cpSync(wasmModule, path.join(DIST_DIR, 'sqlite3.wasm'));
 cpSync(apiFileOut, path.join(DIST_DIR, 'sqlite3.js'));
+const types = path.join(SRC_DIR, 'sqlite3.d.ts');
+cpSync(types, path.join(DIST_DIR, 'sqlite3.d.ts'));
 
-console.log('Build complete: dist/sqlite3.{js,wasm}');
+console.log('Build complete: dist/sqlite3.{js,wasm,d.ts}');

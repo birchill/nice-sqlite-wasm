@@ -5,15 +5,13 @@
   "files": [
     "LICENSE",
     "README.md",
-    "dist/",
-    "src/index.d.ts",
-    "src/index.js"
+    "dist/"
   ],
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "import": "./src/index.js"
+      "types": "./dist/sqlite3.d.ts",
+      "import": "./dist/sqlite3.js"
     }
   },
   "publishConfig": {

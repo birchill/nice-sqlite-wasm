@@ -1,0 +1,1 @@
+https://github.com/sqlite/sqlite-wasm/blob/c0887bb7806a76794ef6f5062cc7198e07f08454/index.d.ts
