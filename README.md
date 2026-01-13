@@ -75,6 +75,17 @@ cd emsdk
 source ./emsdk_env.sh # Or source ./emsdk_env.fish etc.
 ```
 
+Note that you need to run the `emsdk_env.*` script every time so you might want
+to add something to your shell's startup script.
+
+e.g. for fish
+
+```fish
+if test -e ~/emsdk/emsdk_env.fish
+    EMSDK_QUIET=1 source ~/emsdk/emsdk_env.fish
+end
+```
+
 #### Getting `wasm-strip` (from `wabt`)
 
 Then you need to install
