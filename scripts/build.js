@@ -42,14 +42,14 @@ execFileSync(
     EXT_WASM,
     'b-esm',
     'emcc_opt=-Oz',
-    'c-pp.D.esm=-Dtarget:es6-module -Domit-oo1',
+    'c-pp.D.esm=-Dtarget:es6-module',
     'sqlite3-api.jses=$(sqlite3-license-version.js) ' +
       '$(dir.api)/sqlite3-api-prologue.js ' +
       '$(dir.common)/whwasmutil.js ' +
       '$(dir.jacc)/jaccwabyt.js ' +
       '$(dir.api)/sqlite3-api-glue.c-pp.js ' +
       '$(sqlite3-api-build-version.js) ' +
-      // Omit $(dir.api)/sqlite3-api-oo1.c-pp.js
+      '$(dir.api)/sqlite3-api-oo1.c-pp.js ' +
       // Omit $(dir.api)/sqlite3-api-worker1.c-pp.js
       '$(dir.api)/sqlite3-vfs-helper.c-pp.js ' +
       '$(dir.api)/sqlite3-vtab-helper.c-pp.js ' +
