@@ -22,6 +22,7 @@
   },
   "scripts": {
     "fetch": "node scripts/fetch-sqlite.js",
+    "patch": "node scripts/apply-patches.js",
     "build": "node scripts/build.js",
     "format": "oxfmt",
     "format:check": "oxfmt --check"

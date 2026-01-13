@@ -10,7 +10,16 @@ This is a custom build of SQLite intended to:
 
 TODO
 
-## Building
+## Developing
+
+### Installing prerequisites
+
+```
+pnpm install
+```
+
+This will install some tools we use like
+[oxfmt](https://oxc.rs/docs/guide/usage/formatter.html).
 
 ### Fetching the SQLite source code
 
@@ -24,9 +33,36 @@ Then run:
 pnpm run fetch
 ```
 
+### Applying patches
+
+```
+pnpm run patch
+```
+
+#### Creating new patches
+
+First [fetch the source](#fetching-the-sqlite-source-code) then apply any
+existing patches.
+
+Then go to `work/sqlite-src`, make edits and run
+`git diff > ../../patches/patch-name.patch`.
+
+Something like:
+
+```
+pnpm run fetch
+pnpm run patch
+cd work/sqlite-src
+vim ext/wasm/api/pre-js.c-pp.js # For example
+git diff > ../../patches/000x-patch-description.patch
+git stash
+cd ../..
+git add patches/000x-patch-description.patch
+```
+
 ### Building the WASM module
 
-#### Getting Emscripted
+#### Getting Emscripten
 
 First you need to [install
 Emscripten](https://emscripten.org/docs/getting_started/downloads.html).

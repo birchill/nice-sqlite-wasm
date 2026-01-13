@@ -37,6 +37,9 @@ jobs:
       - name: Fetch SQLite source
         run: pnpm run fetch
 
+      - name: Apply patches
+        run: pnpm run patch
+
       - name: Build
         run: pnpm build
 
