@@ -1,6 +1,7 @@
 {
   "bracketSpacing": true,
   "experimentalSortPackageJson": true,
+  "ignorePatterns": ["dist/", "node_modules/", "src/sqlite3.d.ts", "vendor/"],
   "objectWrap": "collapse",
   "printWidth": 80,
   "singleQuote": true,
