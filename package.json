@@ -1,6 +1,6 @@
 {
-  "name": "@birchill/sqlite-wasm-sahpool",
-  "version": "0.0.0-dev",
+  "name": "@birchill/nice-sqlite-wasm",
+  "version": "0.0.1",
   "private": false,
   "files": [
     "LICENSE",

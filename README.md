@@ -1,10 +1,23 @@
-# @birchill/sqlite-wasm-sahpool
+# @birchill/nice-sqlite-wasm
 
-This is a custom build of SQLite intended to:
+This is a custom build of SQLite that only supports the "opfs-sahpool" VFS.
+It's "nice" because:
 
-- Remove the "opfs" VFS, only providing the "opfs-sahpool" VFS instead
-- Allow passing in a custom path for the WASM module in order to support
+- It remove the "opfs" VFS and worker parts of the JS bindings making for a
+  smaller bundle size.
+- It allows passing in a custom path for the WASM module in order to support
   cache-busting filenames / bundlers.
+- It fixes some warnings that otherwise might occur at build or run-time
+  (e.g. the COOP/COEP header warning which is only relevant to the "opfs" VFS
+  and a warning about dependencies based on expressions).
+
+In general, it should be nicer for apps using bundlers that only need the
+"opfs-sahpool" VFS.
+
+> [!NOTE]
+> The JS/WASM part of SQLite is under heavy development and is expected to
+> change a lot in future (e.g. using WASI instead of Emscripten). As a result
+> this project may no longer be necessary or may become impractical to update.
 
 ## Usage
 
