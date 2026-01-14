@@ -2,6 +2,10 @@
   "name": "@birchill/nice-sqlite-wasm",
   "version": "0.0.2",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/birchill/nice-sqlite-wasm"
+  },
   "files": [
     "LICENSE",
     "README.md",
