@@ -1937,17 +1937,6 @@ declare type Sqlite3Static = {
     downloadVersion: number;
   };
 
-  /**
-   * Initializes the Worker API.
-   *
-   * Required to permit this API to be loaded in Worker threads without
-   * automatically registering onmessage handlers
-   *
-   * If this function is called from a non-worker thread then it throws an
-   * exception. It must only be called once per Worker.
-   */
-  initWorker1API(): void;
-
   installOpfsSAHPoolVfs(opts: {
     /**
      * If truthy (default=false) contents and filename mapping are removed from
