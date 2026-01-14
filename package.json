@@ -25,9 +25,11 @@
     "patch": "node scripts/apply-patches.js",
     "build": "node scripts/build.js",
     "format": "oxfmt",
-    "format:check": "oxfmt --check"
+    "format:check": "oxfmt --check",
+    "ci:publish": "pnpm changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "2.29.8",
     "oxfmt": "0.23.0"
   }
 }
