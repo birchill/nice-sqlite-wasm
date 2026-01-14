@@ -2241,7 +2241,10 @@ declare type Sqlite3Static = {
 };
 
 declare type InitOptions = {
-  locateFile?: (path: string, prefix: string) => string;
+  locateFile?: (
+    path: string,
+    prefix: string,
+  ) => string | Response | Promise<Response>;
   print?: (msg: string) => void;
   printErr?: (msg: string) => void;
 };

@@ -85,6 +85,7 @@ Then update the table below.
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `0001-locatefile-nullish-coalesce.patch` | Allow a user-provided `locateFile` function to be used (rather than clobbered).                                                             |
 | `0002-hardcode-locatefile-path.patch`    | Hardcodes the path used in the default `locateFile` implementation so that bundlers don't complain about dependencies based on expressions. |
+| `0003-locatefile-with-response.patch`    | Allows a user-provided `locateFile` function to return a `Response` or a `Promise<Response>`.                                               |
 
 ### Building the WASM module
 

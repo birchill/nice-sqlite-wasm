@@ -1,0 +1,28 @@
+diff --git a/ext/wasm/api/pre-js.c-pp.js b/ext/wasm/api/pre-js.c-pp.js
+index da399df..9ec48b3 100644
+--- a/ext/wasm/api/pre-js.c-pp.js
++++ b/ext/wasm/api/pre-js.c-pp.js
+@@ -101,7 +101,9 @@
+           ? "" : scriptDirectory)
+     );
+     sims.debugModule("instantiateWasm() uri =", uri, "sIMS =",this);
+-    const wfetch = ()=>fetch(uri, {credentials: 'same-origin'});
++    const response = uri instanceof Response || uri instanceof Promise
++      ? uri
++      : fetch(uri, { credentials: 'same-origin' });
+     const finalThen = (arg)=>{
+       arg.imports = imports;
+       sims.instantiateWasm = arg /* used by sqlite3-api-prologue.c-pp.js */;
+@@ -110,10 +112,10 @@
+     const loadWasm = WebAssembly.instantiateStreaming
+           ? async ()=>
+           WebAssembly
+-          .instantiateStreaming(wfetch(), imports)
++          .instantiateStreaming(response, imports)
+           .then(finalThen)
+           : async ()=>// Safari < v15
+-          wfetch()
++          Promise.resolve(response)
+           .then(response => response.arrayBuffer())
+           .then(bytes => WebAssembly.instantiate(bytes, imports))
+           .then(finalThen)
