@@ -3,7 +3,7 @@
 This is a custom build of SQLite that only supports the "opfs-sahpool" VFS.
 It's "nice" because:
 
-- It remove the "opfs" VFS and worker parts of the JS bindings making for a
+- It removes the "opfs" VFS and worker parts of the JS bindings making for a
   smaller bundle size.
 - It allows passing in a custom path for the WASM module in order to support
   cache-busting filenames / bundlers.
