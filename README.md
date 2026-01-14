@@ -5,8 +5,9 @@ It's "nice" because:
 
 - It removes the "opfs" VFS and worker parts of the JS bindings making for a
   smaller bundle size.
-- It allows passing in a custom path for the WASM module in order to support
-  cache-busting filenames / bundlers.
+- It allows overriding the `locateFile` function so that you can provide a
+  custom path for the WASM module (e.g. in order to support cache-busting
+  filenames) or even a `Response` object (e.g. so you can abort the download).
 - It fixes some warnings that otherwise might occur at build or run-time
   (e.g. the COOP/COEP header warning which is only relevant to the "opfs" VFS
   and a warning about dependencies based on expressions).
