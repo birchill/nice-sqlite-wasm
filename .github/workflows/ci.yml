@@ -60,8 +60,8 @@ jobs:
         if: github.repository == 'birchill/nice-sqlite-wasm' && github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: changesets/action@v1
         with:
-          commit: "chore(release): publish"
-          title: "Publish next version"
+          commit: 'chore(release): publish'
+          title: 'Publish next version'
           publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
