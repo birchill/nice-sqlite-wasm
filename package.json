@@ -13,7 +13,8 @@
     ".": {
       "types": "./dist/sqlite3.d.ts",
       "import": "./dist/sqlite3.js"
-    }
+    },
+    "./sqlite3.wasm": "./dist/sqlite3.wasm"
   },
   "publishConfig": {
     "access": "restricted",
