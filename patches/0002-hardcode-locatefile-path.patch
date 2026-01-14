@@ -1,0 +1,23 @@
+diff --git a/ext/wasm/api/pre-js.c-pp.js b/ext/wasm/api/pre-js.c-pp.js
+index b2c3147..da399df 100644
+--- a/ext/wasm/api/pre-js.c-pp.js
++++ b/ext/wasm/api/pre-js.c-pp.js
+@@ -48,7 +48,17 @@
+   */
+   Module['locateFile'] ??= function(path, prefix) {
+ //#if target:es6-module
+-    return new URL(path, import.meta.url).href;
++    // Bundlers like rspack will complain if we pass a variable to the URL()
++    // constructor here:
++    //
++    //   Critical dependency: the request of a dependency is an expression
++    //
++    // But we know for a fact that the only value passed for `path` here is
++    // 'sqlite3.wasm' so we just hardcode that.
++    if (path !== 'sqlite3.wasm') {
++      throw new Error(`Unexpected path passed to locateFile(): ${path}`);
++    }
++    return new URL('sqlite3.wasm', import.meta.url).href;
+ //#else
+     'use strict';
+     let theFile;

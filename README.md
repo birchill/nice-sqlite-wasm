@@ -53,12 +53,22 @@ Something like:
 pnpm run fetch
 pnpm run patch
 cd work/sqlite-src
+git commit -am "Existing patches"
 vim ext/wasm/api/pre-js.c-pp.js # For example
 git diff > ../../patches/000x-patch-description.patch
 git stash
 cd ../..
 git add patches/000x-patch-description.patch
 ```
+
+Then update the table below.
+
+#### Current patches
+
+| Patch name                               | Purpose                                                                                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0001-locatefile-nullish-coalesce.patch` | Allow a user-provided `locateFile` function to be used (rather than clobbered).                                                             |
+| `0002-hardcode-locatefile-path.patch`    | Hardcodes the path used in the default `locateFile` implementation so that bundlers don't complain about dependencies based on expressions. |
 
 ### Building the WASM module
 
