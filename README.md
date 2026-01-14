@@ -19,6 +19,9 @@ In general, it should be nicer for apps using bundlers that only need the
 > change a lot in future (e.g. using WASI instead of Emscripten). As a result
 > this project may no longer be necessary or may become impractical to update.
 
+For the official SQLite WASM package see
+[sqlite-wasm](https://github.com/sqlite/sqlite-wasm).
+
 ## Usage
 
 TODO
