@@ -21,7 +21,6 @@
     "./sqlite3.wasm": "./dist/sqlite3.wasm"
   },
   "publishConfig": {
-    "access": "restricted",
     "provenance": true
   },
   "scripts": {
