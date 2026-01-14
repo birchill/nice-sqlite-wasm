@@ -145,3 +145,13 @@ Then run:
 ```
 pnpm build
 ```
+
+### Making changes
+
+After making changes, to update the changelog run:
+
+```
+pnpm changeset
+```
+
+Don't forget to add the changeset file created in `/.changeset` to the commit.
