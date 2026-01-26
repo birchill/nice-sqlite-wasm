@@ -15,6 +15,9 @@ It's "nice" because:
 In general, it should be nicer for apps using bundlers that only need the
 "opfs-sahpool" VFS.
 
+As an extra bonus, the whole build (including building the WASM module) is done
+in CI and published to npm with provenance data so you get full traceability.
+
 > [!NOTE]
 > The JS/WASM part of SQLite is under heavy development and is expected to
 > change a lot in future (e.g. using WASI instead of Emscripten). As a result
@@ -25,7 +28,116 @@ For the official SQLite WASM package see
 
 ## Usage
 
-TODO
+Install:
+
+```
+npm install @birchill/nice-sqlite-wasm
+```
+
+You _could_ probably just do an `import sqlite3InitModule from
+'@birchill/nice-sqlite-wasm'` and be done with it but the whole point of this
+module is to allow you to set it up for better caching and pre-loading.
+How you do that will depend on your bundler.
+
+Following is an example for [rspack](https://rspack.rs).
+
+### rspack
+
+First, we set up a way to generated the name of the WASM module so we can pass
+it to `sqlite3InitModule`.
+
+In your `rspack.config.js`:
+
+```js
+export default defineConfig((env) => {
+  // ...
+  module: {
+    rules: [
+      { resourceQuery: /url$/, type: 'asset/resource' },
+    ],
+  },
+});
+```
+
+Second, we set up rspack to produce the desired output filename for the asset,
+otherwise you'll get something like `[hash].wasm` which isn't very helpful.
+
+Furthermore, we want to drop the query string we enabled above.
+
+```js
+export default defineConfig((env) => {
+  // ...
+  output: {
+    assetModuleFilename: (fileInfo) => {
+      // Generate a cacheable but readable filename for WASM files
+      if (
+        fileInfo.filename.endsWith('.wasm') ||
+        fileInfo.filename.endsWith('.wasm?url')
+      ) {
+        return '[name].[hash].wasm';
+      }
+      return '[hash][ext][query]';
+    },
+  },
+});
+```
+
+Then in your worker code:
+
+```js
+import wasmUrl from "@birchill/nice-sqlite-wasm/sqlite3.wasm?url";
+import sqlite3InitModule from "@birchill/nice-sqlite-wasm";
+```
+
+Then when you initialize SQLite:
+
+```js
+const sqlite = await sqlite3InitModule({
+  // Override SQLite's locateFile implementation which wants to resolve
+  // the SQLite WASM binary relative to the source directory instead of
+  // the asset name assigned by rspack.
+  locateFile: (file) => {
+    if (file === "sqlite3.wasm") {
+      // Since we strip the query string in our `assetModuleFilename`
+      // option in rspack.config.js we don't need to worry about dropping
+      // it here.
+      //
+      // If we were to stop doing that, however, we'd need to do
+      // something like:
+      //
+      //   return new URL(wasmUrl, self.location.href).pathname;
+      //
+      // instead.
+      return fetch(wasmUrl, {
+        credentials: "same-origin",
+        // If you want to make the fetch abortable...
+        signal: abortController.signal,
+      });
+    } else {
+      throw new Error(`Unknown file: ${file}`);
+    }
+  },
+});
+```
+
+You can also just return `wasmUrl` from `locateFile` if don't need to control
+the fetch yourself.
+
+### vite
+
+I'm not sure how to configure vite, but if you're only using it for testing
+(i.e. using [vitest](https://vitest.dev/)) then you can just disable
+optimization there as [explained in the official WASM
+module docs](https://github.com/sqlite/sqlite-wasm/#usage-with-vite):
+
+```js
+// vitest.config.js
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  optimizeDeps: { exclude: ["@birchill/nice-sqlite-wasm"] },
+});
+```
 
 ## Developing
 
