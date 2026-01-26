@@ -89,5 +89,7 @@ cpSync(wasmModule, path.join(DIST_DIR, 'sqlite3.wasm'));
 cpSync(apiFileOut, path.join(DIST_DIR, 'sqlite3.js'));
 const types = path.join(SRC_DIR, 'sqlite3.d.ts');
 cpSync(types, path.join(DIST_DIR, 'sqlite3.d.ts'));
+const revFile = path.join(WORK_DIR, 'sqlite-rev.txt');
+cpSync(revFile, path.join(DIST_DIR, 'sqlite-rev.txt'));
 
 console.log('Build complete: dist/sqlite3.{js,wasm,d.ts}');
