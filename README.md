@@ -85,8 +85,8 @@ export default defineConfig((env) => {
 Then in your worker code:
 
 ```js
-import wasmUrl from "@birchill/nice-sqlite-wasm/sqlite3.wasm?url";
-import sqlite3InitModule from "@birchill/nice-sqlite-wasm";
+import wasmUrl from '@birchill/nice-sqlite-wasm/sqlite3.wasm?url';
+import sqlite3InitModule from '@birchill/nice-sqlite-wasm';
 ```
 
 Then when you initialize SQLite:
@@ -97,7 +97,7 @@ const sqlite = await sqlite3InitModule({
   // the SQLite WASM binary relative to the source directory instead of
   // the asset name assigned by rspack.
   locateFile: (file) => {
-    if (file === "sqlite3.wasm") {
+    if (file === 'sqlite3.wasm') {
       // Since we strip the query string in our `assetModuleFilename`
       // option in rspack.config.js we don't need to worry about dropping
       // it here.
@@ -109,7 +109,7 @@ const sqlite = await sqlite3InitModule({
       //
       // instead.
       return fetch(wasmUrl, {
-        credentials: "same-origin",
+        credentials: 'same-origin',
         // If you want to make the fetch abortable...
         signal: abortController.signal,
       });
@@ -132,10 +132,10 @@ module docs](https://github.com/sqlite/sqlite-wasm/#usage-with-vite):
 
 ```js
 // vitest.config.js
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  optimizeDeps: { exclude: ["@birchill/nice-sqlite-wasm"] },
+  optimizeDeps: { exclude: ['@birchill/nice-sqlite-wasm'] },
 });
 ```
 
