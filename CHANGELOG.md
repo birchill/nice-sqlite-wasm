@@ -1,5 +1,11 @@
 # @birchill/nice-sqlite-wasm
 
+## 0.1.2
+
+### Patch Changes
+
+- 8353ab9: Update to SQLite 3.51.3
+
 ## 0.1.1
 
 ### Patch Changes
