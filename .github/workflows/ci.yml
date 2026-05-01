@@ -22,8 +22,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           cache: pnpm
-          # emsdk seems to be using Node 22 at the moment so align with that
-          node-version: 22
+          node-version: 24
 
       - name: Install deps
         run: pnpm install
