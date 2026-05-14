@@ -54,8 +54,7 @@ execFileSync(
       '$(dir.api)/sqlite3-vfs-helper.c-pp.js ' +
       '$(dir.api)/sqlite3-vtab-helper.c-pp.js ' +
       // Omit $(dir.api)/sqlite3-vfs-opfs.c-pp.js
-      '$(dir.api)/sqlite3-vfs-opfs-sahpool.c-pp.js ' +
-      '$(dir.api)/sqlite3-api-cleanup.js',
+      '$(dir.api)/sqlite3-vfs-opfs-sahpool.c-pp.js',
   ],
   { stdio: 'inherit' }
 );

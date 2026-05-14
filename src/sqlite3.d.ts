@@ -2241,7 +2241,7 @@ declare type Sqlite3Static = {
 };
 
 declare type InitOptions = {
-  locateFile?: (
+  emscriptenLocateFile?: (
     path: string,
     prefix: string,
   ) => string | Response | Promise<Response>;
@@ -7622,7 +7622,7 @@ declare type CAPI = {
   sqlite3_js_db_export: (
     db: Database | WasmPointer,
     schema?: string | WasmPointer,
-  ) => Uint8Array<ArrayBuffer>;
+  ) => Uint8Array;
 
   /**
    * Given a `sqlite3*` and a database name (JS string or WASM C-string pointer,

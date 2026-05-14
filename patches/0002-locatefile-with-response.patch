@@ -1,8 +1,8 @@
 diff --git a/ext/wasm/api/pre-js.c-pp.js b/ext/wasm/api/pre-js.c-pp.js
-index da399df..9ec48b3 100644
+index da314b9..b047b28 100644
 --- a/ext/wasm/api/pre-js.c-pp.js
 +++ b/ext/wasm/api/pre-js.c-pp.js
-@@ -101,7 +101,9 @@
+@@ -140,7 +140,9 @@
            ? "" : scriptDirectory)
      );
      sims.debugModule("instantiateWasm() uri =", uri, "sIMS =",this);
@@ -13,7 +13,7 @@ index da399df..9ec48b3 100644
      const finalThen = (arg)=>{
        arg.imports = imports;
        sims.instantiateWasm = arg /* used by sqlite3-api-prologue.c-pp.js */;
-@@ -110,10 +112,10 @@
+@@ -149,10 +151,10 @@
      const loadWasm = WebAssembly.instantiateStreaming
            ? async ()=>
            WebAssembly
