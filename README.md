@@ -5,9 +5,8 @@ It's "nice" because:
 
 - It removes the "opfs" VFS and worker parts of the JS bindings making for a
   smaller bundle size.
-- It allows overriding the `locateFile` function so that you can provide a
-  custom path for the WASM module (e.g. in order to support cache-busting
-  filenames) or even a `Response` object (e.g. so you can abort the download).
+- It allows returning a `Response` object (e.g. so you can abort the download)
+  from `emscriptenLocateFile`.
 - It fixes some warnings that otherwise might occur at build or run-time
   (e.g. the COOP/COEP header warning which is only relevant to the "opfs" VFS
   and a warning about dependencies based on expressions).
@@ -85,8 +84,8 @@ export default defineConfig((env) => {
 Then in your worker code:
 
 ```js
-import wasmUrl from '@birchill/nice-sqlite-wasm/sqlite3.wasm?url';
-import sqlite3InitModule from '@birchill/nice-sqlite-wasm';
+import wasmUrl from "@birchill/nice-sqlite-wasm/sqlite3.wasm?url";
+import sqlite3InitModule from "@birchill/nice-sqlite-wasm";
 ```
 
 Then when you initialize SQLite:
@@ -96,8 +95,8 @@ const sqlite = await sqlite3InitModule({
   // Override SQLite's locateFile implementation which wants to resolve
   // the SQLite WASM binary relative to the source directory instead of
   // the asset name assigned by rspack.
-  locateFile: (file) => {
-    if (file === 'sqlite3.wasm') {
+  emscriptenLocateFile: (file) => {
+    if (file === "sqlite3.wasm") {
       // Since we strip the query string in our `assetModuleFilename`
       // option in rspack.config.js we don't need to worry about dropping
       // it here.
@@ -109,7 +108,7 @@ const sqlite = await sqlite3InitModule({
       //
       // instead.
       return fetch(wasmUrl, {
-        credentials: 'same-origin',
+        credentials: "same-origin",
         // If you want to make the fetch abortable...
         signal: abortController.signal,
       });
@@ -120,8 +119,8 @@ const sqlite = await sqlite3InitModule({
 });
 ```
 
-You can also just return `wasmUrl` from `locateFile` if don't need to control
-the fetch yourself.
+You can also just return `wasmUrl` from `emscriptenLocateFile` if don't need to
+control the fetch yourself.
 
 ### vite
 
@@ -132,10 +131,10 @@ module docs](https://github.com/sqlite/sqlite-wasm/#usage-with-vite):
 
 ```js
 // vitest.config.js
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  optimizeDeps: { exclude: ['@birchill/nice-sqlite-wasm'] },
+  optimizeDeps: { exclude: ["@birchill/nice-sqlite-wasm"] },
 });
 ```
 
@@ -194,11 +193,10 @@ Then update the table below.
 
 #### Current patches
 
-| Patch name                               | Purpose                                                                                                                                     |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0001-locatefile-nullish-coalesce.patch` | Allow a user-provided `locateFile` function to be used (rather than clobbered).                                                             |
-| `0002-hardcode-locatefile-path.patch`    | Hardcodes the path used in the default `locateFile` implementation so that bundlers don't complain about dependencies based on expressions. |
-| `0003-locatefile-with-response.patch`    | Allows a user-provided `locateFile` function to return a `Response` or a `Promise<Response>`.                                               |
+| Patch name                            | Purpose                                                                                                                                     |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0001-hardcode-locatefile-path.patch` | Hardcodes the path used in the default `locateFile` implementation so that bundlers don't complain about dependencies based on expressions. |
+| `0002-locatefile-with-response.patch` | Allows a user-provided `emscriptenLocateFile` function to return a `Response` or a `Promise<Response>`.                                     |
 
 ### Building the WASM module
 
