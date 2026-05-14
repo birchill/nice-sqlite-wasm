@@ -21,6 +21,7 @@
     "./sqlite3.wasm": "./dist/sqlite3.wasm"
   },
   "publishConfig": {
+    "engines": {},
     "provenance": true
   },
   "scripts": {
@@ -34,5 +35,8 @@
   "devDependencies": {
     "@changesets/cli": "2.29.8",
     "oxfmt": "0.23.0"
+  },
+  "engines": {
+    "pnpm": ">=11"
   }
 }
