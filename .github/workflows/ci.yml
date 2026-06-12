@@ -31,7 +31,7 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
 
       - name: Setup wabt (for wasm-strip)
-        uses: mwilliamson/setup-wabt-action@v3
+        uses: mwilliamson/setup-wabt-action@v4
         with:
           wabt-version: 1.0.41
 
@@ -59,8 +59,8 @@ jobs:
         if: github.repository == 'birchill/nice-sqlite-wasm' && github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: changesets/action@v1
         with:
-          commit: 'chore(release): publish'
-          title: 'Publish next version'
+          commit: "chore(release): publish"
+          title: "Publish next version"
           publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
