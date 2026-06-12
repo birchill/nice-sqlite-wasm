@@ -1,5 +1,14 @@
 # @birchill/nice-sqlite-wasm
 
+## 0.2.0
+
+### Minor Changes
+
+- b7fa4cf: Update to SQLite 3.53.2
+
+  BREAKING CHANGE: Rather than overriding `locateFile` to load the WASM file, use
+  the `emscriptenLocateFile` option instead.
+
 ## 0.1.2
 
 ### Patch Changes
