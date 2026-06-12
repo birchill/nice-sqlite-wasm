@@ -1,6 +1,6 @@
 {
   "bracketSpacing": true,
-  "experimentalSortPackageJson": true,
+  "sortPackageJson": true,
   "ignorePatterns": [
     ".changeset/",
     "dist/",
