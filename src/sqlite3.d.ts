@@ -1994,6 +1994,23 @@ declare type Sqlite3Static = {
      * option.
      */
     name?: string;
+
+    /**
+     * (default=false) If a previous attempt to install this VFS failed, discard
+     * the cached failure and try again.
+     *
+     * Without this, the rejected initialization promise is cached per VFS name
+     * and every subsequent call re-throws that same error.
+     */
+    forceReinitIfPreviouslyFailed?: boolean;
+
+    /**
+     * (default=2) Specifies the logging verbosity.
+     *
+     * 0 logs nothing, 1 logs errors, 2 logs errors and warnings, and 3 adds
+     * debug logging.
+     */
+    verbosity?: number;
   }): Promise<SAHPoolUtil>;
 
   WasmAllocError: typeof WasmAllocError;
