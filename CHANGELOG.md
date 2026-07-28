@@ -1,5 +1,16 @@
 # @birchill/nice-sqlite-wasm
 
+## 0.3.0
+
+### Minor Changes
+
+- 18d5930: Update to SQLite 3.53.4
+
+### Patch Changes
+
+- 7ecae91: Add the missing `forceReinitIfPreviouslyFailed` and `verbosity` options to the
+  `installOpfsSAHPoolVfs` typings
+
 ## 0.2.0
 
 ### Minor Changes
